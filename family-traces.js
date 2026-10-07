@@ -2,7 +2,7 @@
 // Published chassis size establishes a shared scale; keycap geometry is image-derived.
 function familyTrace(l){const pro=l.id==='pro';if(!pro&&!['zen','zen16','zeni'].includes(l.id))return null;
 const box=pro?[285,562,1030,713]:[123,247,554,390],color=l.color;
-let s=`<g transform="scale(${l.w/box[2]} ${l.d/box[3]}) translate(${-box[0]} ${-box[1]})"><rect x="${box[0]}" y="${box[1]}" width="${box[2]}" height="${box[3]}" rx="${pro?23:7}" fill="${color}16" stroke="${color}" stroke-width="${pro?4:2}"/>`;
+let s=`<g transform="scale(${l.w/box[2]} ${l.d/box[3]}) translate(${-box[0]} ${-box[1]})">${l.id==='zeni'?`<path d="M130 247H670Q677 247 677 254V630Q677 637 670 637H432Q427 637 425 633H375Q373 637 368 637H130Q123 637 123 630V254Q123 247 130 247Z" fill="${color}16" stroke="${color}" stroke-width="2"/>`:`<rect x="${box[0]}" y="${box[1]}" width="${box[2]}" height="${box[3]}" rx="${pro?23:7}" fill="${color}16" stroke="${color}" stroke-width="${pro?4:2}"/>`}`;
 const rows=pro?[
 [638,34,361,878,['Esc','F1','F2','F3','F4','F5','F6','F7','F8','F9','F10','F11','F12','Ins','PrtSc','Del'],[1.2,...Array(15).fill(1)]],
 [680,50,361,878,['~','1','2','3','4','5','6','7','8','9','0','−','+','⌫'],[1,...Array(12).fill(1),1.6]],
