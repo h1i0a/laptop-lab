@@ -7,7 +7,7 @@ GitHub `main` is the public site. This audit distinguishes exact retail configur
 - The default comparison still featured an out-of-stock Ryzen AI 7 445 Zenbook deal and an older Yoga Pro 7 price. It omitted the current Jarir Ultra 9 Zenbook SKU, MagicBook Art 14 2025, the 24GB M5 Air, and MegaBook S14.
 - Side views placed each port at fixed 25–30 unit intervals. No source supported those offsets, so the drawings implied false precision.
 - The older Intel Zenbook record used another suffix and an older price. The same platform can have 60Hz and 120Hz displays, making the retail suffix important.
-- A single weighted battery score mixed Tom's Hardware's mixed web/video/OpenGL loop, Ultrabookreview's Edge browsing, and Notebookcheck's Wi-Fi test. These are now kept as separate method-labelled results; mixed methods are omitted from the battery ranking.
+- Battery reports use different workloads. Their source conditions remain visible; reported hours are now rough comparison inputs when every eligible laptop has a value. The interface labels them as estimates.
 - Many wider-catalog records contain unresolved SKUs, generic keyboards, missing benchmarks, and historical prices. They remain available for comparison but outside the purchase shortlist. No physical outline is drawn where chassis dimensions are unresolved.
 
 ## Current research status
