@@ -67,7 +67,7 @@ LAPTOPS.push({
   good:'Very light for a 14.6-inch screen; large published haptic pad; x86 and varied ports.',
   bad:'60Wh battery; soldered RAM; detachable camera may not suit every workflow.',
   group:'considerable',status:'Platform measured; STC stock unverified',
-  physicalNote:'HONOR publishes 316.77 × 223.63 × 11.5mm and 129 × 94.5mm touchpad. A near top-down eXtra product photo supports the pictured keyboard rows, half-height arrows, and deck placement; estimated key pitch is about 19mm and front pad margin about 5mm. Port centers are estimated from the 2025 review side photographs, within roughly 8mm. Regional legends remain unverified. Notebookcheck measured 503 nits SDR.'
+  physicalNote:'HONOR publishes 316.77 × 223.63 × 11.5mm and 129 × 94.5mm touchpad. A near top-down product photo and user-supplied review frames support the pictured keyboard rows, side speaker grilles, half-height arrows, and deck placement; estimated key pitch is about 19mm and front pad margin about 8mm. Perforation dots are illustrative. Port centers are estimated from the 2025 review side photographs, within roughly 8mm. Regional legends remain unverified. Notebookcheck measured 503 nits SDR.'
 });
 LAPTOPS.push({
   id:'tecno',brand:'TECNO',name:'MegaBook S14',model:'71005000111 · Jarir 674503',
@@ -117,6 +117,8 @@ byId('mac24').runtimeMethodGroup='Tom’s mixed web/video/OpenGL · 150 nits';
 // chassis depth as the scale. Coordinates are millimetres from REAR to FRONT.
 // The uncertainty covers endpoint selection, perspective and port-center reading.
 const PORT_TRACES={
+  msi:{uncertainty:12,source:'#private-source',basis:'Owner-supplied photographs of this Modern 14 B5M, 7 October 2026; angled views',
+    L:[['DC',33],['HDMI',51],['USB-C',73],['microSD',88]],R:[['USB-A',36],['USB-A',55],['Audio',76]]},
   zeni:{uncertainty:5,source:'https://www.asus.com/laptops/for-home/zenbook/asus-zenbook-14-oled-ux3405/',basis:'ASUS UX3405 gallery, same chassis family',
     L:[['USB-A',203]],R:[['HDMI',17],['Audio',37],['TB4',54],['TB4',69]]},
   mac5:{uncertainty:10,source:'https://www.trikart.com/media/catalog/product/m/a/macbook-air-m2-space-grey_5.jpg?auto=webp&quality=90&width=2500',basis:'Full side photo of 2022 Air enclosure; M5 uses the same 13-inch enclosure',
@@ -126,6 +128,7 @@ const PORT_TRACES={
 };
 for(const [id,trace] of Object.entries(PORT_TRACES))byId(id).portTrace=trace;
 byId('mac24').portTrace=PORT_TRACES.mac5;
+byId('msi').physicalNote='Your Modern 14 B5M deck follows your supplied photograph. Left and right side port centers are estimated from additional owner photos, within roughly 12mm due to perspective; those personal photos are not published.';
 
 function portGlyph(name,x,y){
   const audio=name==='Audio'||name==='DC';
@@ -138,25 +141,28 @@ function portSequence(l,side){return l.portTrace?.[side]?.slice().sort((a,b)=>a[
 
 function specialDeck(l){
   if(l.id!=='honor')return null;
-  const padX=(l.w-129)/2,padY=l.d-94.5-5,keyX=18,keyW=l.w-36,gap=1.8;
+  const padX=(l.w-129)/2,padY=l.d-94.5-8,keyX=22,keyW=l.w-44,gap=1.8;
   const key=(x,y,w,h,label)=>`<rect x="${x.toFixed(2)}" y="${y}" width="${w.toFixed(2)}" height="${h}" rx="1.5" fill="#f6f9f7" stroke="${l.color}" stroke-width=".55"/><text x="${(x+w/2).toFixed(2)}" y="${y+h*.66}" text-anchor="middle" fill="#516259" font-size="${label.length>5?3.2:label.length>2?4.1:5}">${esc(label)}</text>`;
   const row=(y,h,labels,weights)=>{const unit=(keyW-gap*(labels.length-1))/weights.reduce((a,b)=>a+b,0);let x=keyX;return labels.map((label,i)=>{const w=unit*weights[i],svg=key(x,y,w,h,label);x+=w+gap;return svg;}).join('');};
   let keys='';
   keys+=row(15.5,10.2,['Esc','F1','F2','F3','F4','F5','F6','F7','F8','F9','F10','F11','F12','Del'],[1.05,1,1,1,1,1,1,1,1,1,1,1,1,1.05]);
-  keys+=row(29,16,['~','1','2','3','4','5','6','7','8','9','0','-','=','⌫'],[1,1,1,1,1,1,1,1,1,1,1,1,1,1.9]);
-  keys+=row(48,16,['Tab','Q','W','E','R','T','Y','U','I','O','P','[',']','\\'],[1.5,1,1,1,1,1,1,1,1,1,1,1,1,1.4]);
-  keys+=row(67,16,['Caps','A','S','D','F','G','H','J','K','L',';','\'','Enter'],[1.75,1,1,1,1,1,1,1,1,1,1,1,2]);
-  keys+=row(86,16,['Shift','Z','X','C','V','B','N','M',',','.','/','Shift'],[2.2,1,1,1,1,1,1,1,1,1,1,2.4]);
+  keys+=row(27,15,['~','1','2','3','4','5','6','7','8','9','0','-','=','⌫'],[1,1,1,1,1,1,1,1,1,1,1,1,1,1.9]);
+  keys+=row(44,15,['Tab','Q','W','E','R','T','Y','U','I','O','P','[',']','\\'],[1.5,1,1,1,1,1,1,1,1,1,1,1,1,1.4]);
+  keys+=row(62,15,['Caps','A','S','D','F','G','H','J','K','L',';','\'','Enter'],[1.75,1,1,1,1,1,1,1,1,1,1,1,2]);
+  keys+=row(80,15,['Shift','Z','X','C','V','B','N','M',',','.','/','Shift'],[2.2,1,1,1,1,1,1,1,1,1,1,2.4]);
   const bottom=['Ctrl','Fn','⊞','Alt','','Alt','Copilot','←','↕','→'],weights=[1.05,.9,.9,.9,5.6,.9,1.1,.9,.9,.9];
   const unit=(keyW-gap*(bottom.length-1))/weights.reduce((a,b)=>a+b,0);let bx=keyX;
-  bottom.forEach((label,i)=>{const w=unit*weights[i];if(label==='↕'){keys+=key(bx,105,w,7.1,'↑')+key(bx,113.5,w,7.1,'↓');}else keys+=key(bx,105,w,16,label);bx+=w+gap;});
+  bottom.forEach((label,i)=>{const w=unit*weights[i];if(label==='↕'){keys+=key(bx,98,w,7.1,'↑')+key(bx,106.5,w,7.1,'↓');}else keys+=key(bx,98,w,16,label);bx+=w+gap;});
+  // The grille zones are photo-derived; dot density is illustrative.
+  const grilleDots=[6,9].flatMap(gx=>Array.from({length:30},(_,i)=>`<circle cx="${gx}" cy="${15+i*3.2}" r=".43" fill="${l.color}"/>`)).join('');
+  const grilles=`<g opacity=".6"><rect x="4" y="12" width="10" height="102" rx="1" fill="${l.color}12"/>${grilleDots}<rect x="${l.w-14}" y="12" width="10" height="102" rx="1" fill="${l.color}12"/><g transform="translate(${l.w-18} 0)">${grilleDots}</g></g>`;
   const frontNotch=`M4 0H${l.w-4}Q${l.w} 0 ${l.w} 4V${l.d-4}Q${l.w} ${l.d} ${l.w-4} ${l.d}H193Q189 ${l.d} 187 ${l.d-2.5}H130Q128 ${l.d} 124 ${l.d}H4Q0 ${l.d} 0 ${l.d-4}V4Q0 0 4 0Z`;
-  return `<g><path d="${frontNotch}" fill="${l.color}14" stroke="${l.color}" stroke-width="1.2"/><path d="M18 10H${l.w-18}" stroke="${l.color}" stroke-width=".5"/>${keys}<rect x="${padX}" y="${padY}" width="129" height="94.5" rx="2" fill="${l.color}18" stroke="${l.color}" stroke-width="1.2"/><text x="${l.w/2}" y="${padY+48}" text-anchor="middle" font-size="7" fill="#526858">129 × 94.5 mm · haptic</text></g>`;
+  return `<g><path d="${frontNotch}" fill="${l.color}14" stroke="${l.color}" stroke-width="1.2"/><path d="M18 10H${l.w-18}" stroke="${l.color}" stroke-width=".5"/>${grilles}${keys}<rect x="${padX}" y="${padY}" width="129" height="94.5" rx="2" fill="${l.color}18" stroke="${l.color}" stroke-width="1.2"/><text x="${l.w/2}" y="${padY+48}" text-anchor="middle" font-size="7" fill="#526858">129 × 94.5 mm · haptic</text></g>`;
 }
 function portDiagram(l){
   const sides=[['L','LEFT'],['R','RIGHT']];
   const measured=Boolean(l.portTrace);
-  return `<div class="port-order"><svg viewBox="0 0 350 145" role="img" aria-label="${esc(l.name)} side lengths${measured?', with approximate port centers measured from rear':' with port positions unmeasured'}">${sides.map(([s,label],i)=>{const y=32+i*65,cy=y+Math.max(5,l.h)/2,seq=portSequence(l,s);return `<text x="12" y="${y-9}" font-size="9" fill="#637268">${label} · REAR → FRONT</text><rect x="12" y="${y}" width="${l.d}" height="${Math.max(5,l.h)}" rx="2" fill="${l.color}12" stroke="${l.color}" ${seq.length?'':'stroke-dasharray="3 2"'}/>${seq.map(([name,mm])=>`<g><title>${esc(name)} · approximately ${mm} mm from rear ±${l.portTrace.uncertainty} mm</title>${portGlyph(name,12+mm,cy)}</g>`).join('')}<path d="M12 ${y-3}v-4m${l.d} 0v4" stroke="${l.color}" stroke-width=".6"/>`;}).join('')}</svg><div class="port-lists">${sides.map(([s,label])=>{const seq=portSequence(l,s);return `<p><b>${label}:</b> ${seq.length?seq.map(([name,mm])=>`${esc(name)} ~${mm} mm`).join(' · '):esc((l['ports'+s]||[]).join(' · ')||'Not verified')}</p>`;}).join('')}</div><small>${measured?`Photo-derived centers from rear, approximately ±${l.portTrace.uncertainty} mm. Side lengths share a scale. ${link(l.portTrace.source,'Side photo source')}.`:'Side lengths share a scale. Port positions need a usable side-on source; shown inventory is unpositioned.'}</small></div>`;
+  return `<div class="port-order"><svg viewBox="0 0 350 145" role="img" aria-label="${esc(l.name)} side lengths${measured?', with approximate port centers measured from rear':' with port positions unmeasured'}">${sides.map(([s,label],i)=>{const y=32+i*65,cy=y+Math.max(5,l.h)/2,seq=portSequence(l,s);return `<text x="12" y="${y-9}" font-size="9" fill="#637268">${label} · REAR → FRONT</text><rect x="12" y="${y}" width="${l.d}" height="${Math.max(5,l.h)}" rx="2" fill="${l.color}12" stroke="${l.color}" ${seq.length?'':'stroke-dasharray="3 2"'}/>${seq.map(([name,mm])=>`<g><title>${esc(name)} · approximately ${mm} mm from rear ±${l.portTrace.uncertainty} mm</title>${portGlyph(name,12+mm,cy)}</g>`).join('')}<path d="M12 ${y-3}v-4m${l.d} 0v4" stroke="${l.color}" stroke-width=".6"/>`;}).join('')}</svg><div class="port-lists">${sides.map(([s,label])=>{const seq=portSequence(l,s);return `<p><b>${label}:</b> ${seq.length?seq.map(([name,mm])=>`${esc(name)} ~${mm} mm`).join(' · '):esc((l['ports'+s]||[]).join(' · ')||'Not verified')}</p>`;}).join('')}</div><small>${measured?`Photo-derived centers from rear, approximately ±${l.portTrace.uncertainty} mm. Side lengths share a scale. ${l.portTrace.source==='#private-source'?'Owner-supplied side photographs; not published':link(l.portTrace.source,'Side photo source')}.`:'Side lengths share a scale. Port positions need a usable side-on source; shown inventory is unpositioned.'}</small></div>`;
 }
 function sideProfile(l,face){
   const seq=portSequence(l,face==='left'?'L':'R'),cy=l.h/2;
