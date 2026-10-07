@@ -1,6 +1,6 @@
 // October 2026 research update. Keep IDs stable so existing browser preferences survive.
-const GROUP_LABELS={considerable:'Considerable options',watchlist:'Watchlist',historical:'Historical / out of stock',catalog:'Wider catalog'};
-const GROUP_ORDER=['considerable','watchlist','historical','catalog'];
+const GROUP_LABELS={considerable:'Current options',historical:'Historical / out of stock',catalog:'Wider catalog'};
+const GROUP_ORDER=['considerable','historical','catalog'];
 const datedPrice=(source,description)=>({source,description,checked:'2026-10-07'});
 const byId=id=>LAPTOPS.find(l=>l.id===id);
 
@@ -73,7 +73,7 @@ LAPTOPS.push({
   id:'tecno',brand:'TECNO',name:'MegaBook S14',model:'71005000111 · Jarir 674503',
   cpu:'Core Ultra 7 155H',gpu:'Intel Arc integrated',ram:32,ssd:1024,price:4999,
   // Jagat measured a 16GB Intel unit at 313 × 214mm; do not assign it as an exact 32GB outline.
-  weight:.899,screen:14,res:[2880,1800],hz:120,panel:'OLED',nits:null,battery:50,batteryText:'50Wh in related 155H / 16GB review; Saudi 32GB pack unverified',
+  weight:.899,screen:14,res:[2880,1800],hz:120,panel:'OLED',nits:440,displaySource:'https://www.tecno-mobile.com/sa-en/laptops/product-detail/product/megabook-s14/',battery:50,batteryText:'50Wh in related 155H / 16GB review; Saudi 32GB pack unverified',
   tpEstimate:[111,74],touchpad:'Precision clickpad; mechanical/haptic mechanism unverified',
   keyboard:'Backlit chiclet; half-height up/down arrows in related Intel review. Saudi key layout unverified.',
   material:'Magnesium alloy advertised by TECNO; review unit material described as aluminium alloy',
@@ -89,20 +89,20 @@ LAPTOPS.push({
   bench:[2041,10447],benchSource:'https://browser.geekbench.com/v6/cpu/11846048',benchNote:'One public Geekbench 6.4.0 Windows Balanced submission identifies MEGABOOK S14, Core Ultra 7 155H and 31.58GB RAM: 2,041 single / 10,447 multi. SSD and Saudi retail suffix are not shown. The 2,164 / 9,434 AnTuTu review result is for a different Ultra 5 125H / 16GB S14 and is not substituted.',
   runtime:null,runtimeNote:'Independent runtime for exact 32GB Jarir SKU not verified. TECNO 10h claim is manufacturer marketing, not scored.',
   good:'32GB/1TB at SAR 4,999; very low advertised mass; sharp 120Hz OLED.',
-  bad:'Exact 32GB physical measurements and independent battery result still need confirmation; USB-C-only design.',
-  group:'watchlist',status:'Exact retail CPU/RAM confirmed; physical outline provisional',provisional:true,
-  physicalNote:'Jagat Review measured 313 × 214mm and 111 × 74mm pad on a related 155H/16GB unit; another retailer lists 312.6 × 226.8mm for the Saudi 32GB listing. Until resolved, no same-scale chassis outline is drawn.'
+  bad:'Battery runtime for the 32GB offer is unverified; three USB-C ports require adapters for USB-A or HDMI.',
+  group:'considerable',status:'Retail configuration confirmed; same-family outline estimated',provisional:false,
+  physicalNote:'The displayed 313 × 214mm body and 111 × 74mm pad come from a related 155H/16GB S14 review. Another retailer lists 312.6 × 226.8mm for the Saudi 32GB offer, so the exact body dimensions and pad remain unverified.'
 });
 
 // Keep former offers visible as references, never as current purchase rankings.
 Object.assign(byId('zen'),{group:'historical',status:'Out of stock historical deal',note:'eXtra SAR 5,299 less 10% ≈ SAR 4,769 · historical, out of stock'});
-Object.assign(byId('pro'),{group:'watchlist',price:6999,note:'SAR 6,999 user-observed · current stock unverified'});
-const watchlist=[
+Object.assign(byId('pro'),{group:'considerable',price:6799,note:'Jarir SAR 6,799 · checked 7 Oct 2026; location-specific stock unconfirmed',priceSource:'https://www.jarir.com/sa-en/lenovo-yoga-pro-7-laptops-653541.html',priceEvidence:datedPrice('https://www.jarir.com/sa-en/lenovo-yoga-pro-7-laptops-653541.html','Jarir lists 83KF0016AD / 255H / 32GB / 1TB at SAR 6,799.')});
+const currentOptions=[
   ['slimamd','83JY00ATAD','Yoga Slim 7 · Ryzen AI 7 350','Lenovo','Ryzen AI 7 350',32,1024,6899],
   ['yoga7amd','83TD008MAD','Yoga · Ryzen AI 7 445','Lenovo','Ryzen AI 7 445',24,1024,6099]
 ];
-for(const [id,sku,name,brand,cpu,ram,ssd,price] of watchlist){const l=byId(id);Object.assign(l,{name,model:sku,cpu,ram,ssd,price,group:'watchlist',status:'User-observed SKU; chassis unverified',provisional:true,note:`SAR ${price.toLocaleString('en-SA')} user-observed; current listing and physical design unverified`});}
-LAPTOPS.push({id:'hpx',brand:'HP',name:'HP · Ryzen AI 9 HX 375',model:'B58THEAA2N',cpu:'Ryzen AI 9 HX 375',ram:32,ssd:1024,price:6999,os:'Windows',arch:'x86-64',group:'watchlist',provisional:true,status:'Exact model/chassis unverified',note:'SAR 6,999 user-observed; retailer and chassis pending',source:'#private-source',priceSource:'#private-source',good:'32GB and strong CPU on paper.',bad:'Physical identity and battery test pending.'});
+for(const [id,sku,name,brand,cpu,ram,ssd,price] of currentOptions){const l=byId(id);Object.assign(l,{name,model:sku,cpu,ram,ssd,price,group:'considerable',status:'Configuration listed; physical details vary',provisional:true,note:`SAR ${price.toLocaleString('en-SA')} user-observed; current stock and physical details unverified`});}
+LAPTOPS.push({id:'hpx',brand:'HP',name:'HP · Ryzen AI 9 HX 375',model:'B58THEAA2N',cpu:'Ryzen AI 9 HX 375',ram:32,ssd:1024,price:6599,os:'Windows',arch:'x86-64',group:'considerable',provisional:true,status:'Retail configuration confirmed; exact chassis traced below',note:'Jarir SAR 6,599 · checked 7 Oct 2026; location-specific stock unconfirmed',source:'#private-source',priceSource:'https://www.jarir.com/sa-en/hp-omnibook-ultra-laptops-646595.html',priceEvidence:datedPrice('https://www.jarir.com/sa-en/hp-omnibook-ultra-laptops-646595.html','Jarir lists B58THEAA2N / HX 375 / 32GB / 1TB at SAR 6,599.'),good:'32GB and strong CPU on paper.',bad:'Independent battery and matched CPU benchmark still pending.'});
 LAPTOPS.push({id:'stc-zen',brand:'ASUS',name:'Zenbook 14 · STC historical listing',model:'Exact SKU unknown; AMD/Intel listing conflict',cpu:'Unverified',ram:32,ssd:512,price:4099,os:'Windows',arch:'x86-64',group:'historical',provisional:true,status:'Historical and unverified',note:'STC SAR 4,099 listing disappeared; CPU/SKU conflicted',source:'#private-source',priceSource:'#private-source',good:'Historical price reference only.',bad:'Never verified or currently purchasable.'});
 for(const l of LAPTOPS){
   l.group ||= ['msi'].includes(l.id)?'catalog':['mac4','zen16'].includes(l.id)?'historical':['slim','slim5','idea'].includes(l.id)?'catalog':'catalog';
