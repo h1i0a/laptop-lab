@@ -86,7 +86,7 @@ LAPTOPS.push({
   priceEvidence:datedPrice('https://www.jarir.com/sa-en/tecno-megabook-laptops-674503.html','Jarir lists manufacturer number 71005000111, Ultra 7 155H, 32GB/1TB and SAR 4,999.'),
   source:'https://www.tecno-mobile.com/sa-en/laptops/product-detail/product/megabook-s14/',
   photo:'https://www.jagatreview.com/2025/12/review-tecno-megabook-s14/2/',
-  bench:null,benchNote:'No controlled Geekbench result for the exact 32GB Jarir SKU. Related 16GB 155H review is not substituted.',
+  bench:[2041,10447],benchSource:'https://browser.geekbench.com/v6/cpu/11846048',benchNote:'One public Geekbench 6.4.0 Windows Balanced submission identifies MEGABOOK S14, Core Ultra 7 155H and 31.58GB RAM: 2,041 single / 10,447 multi. SSD and Saudi retail suffix are not shown. The 2,164 / 9,434 AnTuTu review result is for a different Ultra 5 125H / 16GB S14 and is not substituted.',
   runtime:null,runtimeNote:'Independent runtime for exact 32GB Jarir SKU not verified. TECNO 10h claim is manufacturer marketing, not scored.',
   good:'32GB/1TB at SAR 4,999; very low advertised mass; sharp 120Hz OLED.',
   bad:'Exact 32GB physical measurements and independent battery result still need confirmation; USB-C-only design.',
